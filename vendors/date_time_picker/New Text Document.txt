@@ -1,0 +1,25 @@
+
+<!-- Bootstrap css -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<link rel="stylesheet" href="css/jquery.datetimepicker.css">
+
+
+<script>
+  $('.datetime_pick123').datetimepicker({
+    format:'d-m-Y H:i',
+    minDate: new Date(),
+    timepicker:true,
+    scrollMonth:true,
+    changeMonth: true,
+    changeYear: true,   
+    changeHour: false,   
+  })
+</script>
+
+
+
+<!-- Bootstrap --> 
+<script src="js/jquery-2.1.4.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script> 
