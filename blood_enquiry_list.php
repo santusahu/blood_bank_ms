@@ -1,8 +1,9 @@
 <?php
 include_once "session.php";
 $pagename = "blood_enquiry_list.php";
+$pagename1 = "blood_enquiry_AR.php";
 $insert_page = "donar_registration.php";
-$status = $head_quarter_id = 0;
+$status = $patient_id = 0;
 $tabel_name = "donar_registration";
 $module_name = "Patient";
 $page_module = "Patient";
@@ -75,7 +76,9 @@ $page_module = "Patient";
                                                         <td><?php echo $row33['donar_name']; ?></td>
                                                         <td><?php echo $row33['blood_group']; ?></td>
                                                         <td><?php echo $row33['mobile_number']; ?></td>
-                                                        <td style="text-align: center;"><a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a></td>
+                                                        <td style="text-align: center;"><a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                        <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?patient_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                        </td>
                                                     </tr>
                                             <?php
                                                     $sno++;
@@ -105,19 +108,19 @@ $page_module = "Patient";
     <?php include_once "footer_js.php" ?>
 
     <!-- new js for this page below -->
-    <!-- head_quarter_id on change patch list -->
+    <!-- patient_id on change patch list -->
     <script>
         dr_id = '<?php echo $requested_dr_id ?>';
         area_name_id = '<?php echo $area_name_id ?>';
 
         // es6 function
         const getPatch = () => {
-            head_quarter_id = $('#head_quarter_id').val();
+            patient_id = $('#patient_id').val();
             $.ajax({
                 url: 'ajax.php',
                 type: "post",
                 data: {
-                    head_quarter_id: head_quarter_id,
+                    patient_id: patient_id,
                     get_patch_list: 1
                 },
                 success: function(response) {
@@ -136,7 +139,7 @@ $page_module = "Patient";
         }
 
 
-        $("#head_quarter_id").on('change', function() {
+        $("#patient_id").on('change', function() {
             getPatch()
         });
     </script>

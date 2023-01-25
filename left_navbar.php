@@ -45,10 +45,10 @@
         </li>
 
         <!-- 2 lavel drop down -->
-        <li class="nav-item <?php if ($pagename == 'blood_groop_master.php' || $pagename == 'blood_groop_list.php'  || $pagename == 'medicine_master.php' || $pagename == 'doctor_master.php') {
+        <li class="nav-item <?php if ($pagename == 'blood_group_master.php' || $pagename == 'blood_group_list.php'  || $pagename == 'medicine_master.php' || $pagename == 'doctor_master.php') {
                               echo 'menu-open';
                             } ?>">
-          <a href="#" class="nav-link <?php if ($pagename == 'blood_groop_master.php' || $pagename == 'blood_groop_list.php' || $pagename == 'medicine_master.php' || $pagename == 'doctor_master.php') {
+          <a href="#" class="nav-link <?php if ($pagename == 'blood_group_master.php' || $pagename == 'blood_group_list.php' || $pagename == 'medicine_master.php' || $pagename == 'doctor_master.php') {
                                         echo 'active';
                                       } ?>">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -60,7 +60,7 @@
           <ul class="nav nav-treeview">
             <!-- head_quarter_master -->
             <!-- <li class="nav-item">
-              <a href="blood_groop_master.php" class="nav-link <?php if ($pagename == 'blood_groop_master.php') {
+              <a href="blood_group_master.php" class="nav-link <?php if ($pagename == 'blood_group_master.php') {
                                                                   echo 'active';
                                                                 } ?>">
                 <i class="far fa-circle text-danger nav-icon"></i>
@@ -69,7 +69,7 @@
             </li> -->
 
             <li class="nav-item">
-              <a href="blood_groop_list.php" class="nav-link <?php if ($pagename == 'blood_groop_list.php') {
+              <a href="blood_group_list.php" class="nav-link <?php if ($pagename == 'blood_group_list.php') {
                                                                 echo 'active';
                                                               } ?>">
                 <i class="far fa-circle text-success nav-icon"></i>

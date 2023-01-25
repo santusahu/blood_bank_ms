@@ -1,11 +1,11 @@
 <?php
 include_once "session.php";
 $pagename = "patient_list.php";
-$pagename1 = "blood_donation.php";
-$insert_page = "donar_registration.php";
+$pagename1 = "blood_enquiry.php";
+$insert_page = "patient_registration.php";
 $status = $head_quarter_id = 0;
-$tabel_name = "donar_registration";
-$module_name = "Donar";
+$tabel_name = "patient_registration";
+$module_name = "Patient";
 $page_module = "Patient";
 // $display_form_section = "display:none";
 ?>
@@ -73,12 +73,12 @@ $page_module = "Patient";
                         ?>
                           <tr>
                             <td><?php echo $sno; ?></td>
-                            <td><?php echo $row33['donar_name']; ?></td>
+                            <td><?php echo $row33['patient_name']; ?></td>
                             <td><?php echo $row33['blood_group']; ?></td>
                             <td><?php echo $row33['mobile_number']; ?></td>
                             <td style="text-align: center;">
                               <a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
-                              <a title="Blood Donation" href="<?php echo $pagename1; ?>?donar_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                              <a title="Blood Enquiry" href="<?php echo $pagename1; ?>?patient_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                             </td>
                           </tr>
                       <?php

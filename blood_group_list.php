@@ -1,11 +1,11 @@
 <?php
 include_once "session.php";
-$pagename = "blood_groop_list.php";
-$pagename_1 = "blood_groop_master.php";
+$pagename = "blood_group_list.php";
+$pagename_1 = "blood_group_master.php";
 
 $status = $dr_id = 0;
 $module_name = "Blood Group";
-$tabel_name = "blood_groop_master";
+$tabel_name = "blood_group_master";
 ?>
 
 <?php
@@ -137,8 +137,8 @@ if (isset($_REQUEST['dr_id'])) {
                         ?>
                           <tr>
                             <td><?php echo $sno; ?></td>
-                            <td><?php echo $row33['blood_groop']; ?></td>
-                            <td><?php echo ""; ?></td>
+                            <td><?php echo $row33['blood_group']; ?></td>
+                            <td><?php echo $row33['stock']; ?></td>
                             <!-- <td style="text-align: center;"><a href="<?php echo $pagename_1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a></td> -->
                           </tr>
                       <?php

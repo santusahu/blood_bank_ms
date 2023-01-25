@@ -7,6 +7,8 @@ $page_module = 'Donar';
 $status = $head_quarter_id = 0;
 $tabel_name = "donar_registration";
 $module_name = "Donar Registration";
+$current_date_time = date('Y-m-d H:i:s');
+
 // $display_form_section = "display:none";
 
 
@@ -67,7 +69,7 @@ $module_name = "Donar Registration";
 
                   if ($donar_id > 0) {
                     // update data
-                    $update_query = "UPDATE $tabel_name SET `donar_name`='$donar_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address' WHERE id = '$donar_id' ";
+                    $update_query = "UPDATE $tabel_name SET `donar_name`='$donar_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address' , update_date = '$current_date_time'  WHERE id = '$donar_id' ";
                     $run1 = mysqli_query($con, $update_query);
                     if ($run1) {
                       $msg_show = "Updated";
@@ -77,7 +79,7 @@ $module_name = "Donar Registration";
                     }
                   } else {
                     // insert data
-                    $query = "INSERT INTO $tabel_name SET donar_name = '$donar_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address' ";
+                    $query = "INSERT INTO $tabel_name SET donar_name = '$donar_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address' , create_date = '$current_date_time' , update_date = '$current_date_time' ";
                     $run = mysqli_query($con, $query);
                     if ($run) {
                       $msg_show = "Inserted";
@@ -131,7 +133,7 @@ $module_name = "Donar Registration";
                 <form action="" method="POST">
                   <div class="row card-body">
                     <div class="col-md-6 form-group">
-                      <label for="donar_name ">name</label>
+                      <label for="donar_name ">Name</label>
                       <input type="hidden" name="donar_id" value="<?php echo $donar_id; ?>">
                       <input type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter Name" required>
                     </div>
@@ -140,7 +142,7 @@ $module_name = "Donar Registration";
                     <div class="col-md-6 form-group">
                       <label for="blood_group ">Blood Group</label>
                       <?php
-                        $schema = "SELECT id , blood_groop FROM blood_groop_master";
+                        $schema = "SELECT id , blood_group FROM blood_group_master";
                         $run = mysqli_query($con, $schema);
                       ?>
                       <select class="custom-select form-control" name="blood_group" id="blood_group">
@@ -148,23 +150,23 @@ $module_name = "Donar Registration";
                         <?php
                         while ($row = mysqli_fetch_assoc($run)) {
                           $abc = "";
-                          if ($blood_group == $row['blood_groop']) {
+                          if ($blood_group == $row['blood_group']) {
                             $abc = "selected";
                           }
                         ?>
-                          <option <?php echo $abc; ?> value="<?php echo $row['blood_groop'] ?>"><?php echo $row['blood_groop']; ?></option>
+                          <option <?php echo $abc; ?> value="<?php echo $row['blood_group'] ?>"><?php echo $row['blood_group']; ?></option>
                         <?php  } ?>
                       </select>
                       <!-- <input type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter Blood Group" required> -->
                     </div>
 
                     <div class="col-md-6 form-group">
-                      <label for="mobile_number ">mobile_number</label>
+                      <label for="mobile_number ">Mobile number</label>
                       <input type="text" class="form-control" value="<?php echo $mobile_number; ?>" id="mobile_number" name="mobile_number" placeholder="Enter mobile_number" required>
                     </div>
 
                     <div class="col-md-6 form-group">
-                      <label for="email ">email</label>
+                      <label for="email ">Email</label>
                       <input type="text" class="form-control" value="<?php echo $email; ?>" id="email" name="email" placeholder="Enter email" required>
                     </div>
                     <div class="col-md-6 form-group">

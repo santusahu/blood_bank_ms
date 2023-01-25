@@ -4,9 +4,9 @@ include_once "session.php";
 
 $pagename = "index.php";
 
-$sql_head = "SELECT * From blood_groop_master WHERE 1";
+$sql_head = "SELECT * From blood_group_master WHERE 1";
 $run_head = mysqli_query($con, $sql_head);
-$tot_blood_groop = mysqli_num_rows($run_head);
+$tot_blood_group = mysqli_num_rows($run_head);
 
 
 
@@ -85,18 +85,45 @@ $tot_blood_groop = mysqli_num_rows($run_head);
         <div class="container-fluid">
           <!-- Info boxes -->
           <div class="row">
+
+
+            <?php
+            $sql_medicine = "SELECT * From blood_group_master WHERE 1 ";
+            $run_medicine = mysqli_query($con, $sql_medicine);
+            // $total_medicine = mysqli_num_rows($run_medicine);
+            while ($row = mysqli_fetch_assoc($run_medicine)) {
+              // print_r($row);
+              $blood_group = $row['blood_group'];
+              $stock = $row['stock'];
+
+            ?>
+              <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                  <!-- <span class="info-box-icon bg-danger elevation-1"><i class="far fa-solid fa-heart"></i></span> -->
+                  <span class="info-box-icon bg-danger elevation-1" style="max-height:65px"><img src="Images/logo/droplet-solid.svg" style="width: auto; height:50%; " alt="" sizes="" srcset=""></span>
+                  <a href="medicine_master.php">
+                    <div class="info-box-content">
+                      <span class="info-box-text"><?php echo $blood_group ?></span>
+                      <span class="info-box-number"><?php echo $stock ?></span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            <?php } ?>
+
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box">
                 <!-- <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span> -->
                 <!-- <i class="fa-regular fa-droplet"></i> -->
                 <span class="info-box-icon bg-danger elevation-1"><i class="far fa-solid fa-heart"></i></span>
-                <a href="blood_groop_list.php">
+                <a href="blood_group_list.php">
                   <div class="info-box-content">
                     <span class="info-box-text">Blood Group</span>
-                    <span class="info-box-number"><?php echo $tot_blood_groop ?></span>
-                  </div><!-- /.info-box-content -->
+                    <span class="info-box-number"><?php echo $tot_blood_group ?></span>
+                  </div>
                 </a>
-              </div><!-- /.info-box -->
+              </div>
             </div>
             <!-- /.col -->
 
@@ -119,23 +146,6 @@ $tot_blood_groop = mysqli_num_rows($run_head);
 
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
-
-            <?php
-            // $sql_medicine = "SELECT * From medicine_master WHERE delete_status = 0 ";
-            // $run_medicine = mysqli_query($con, $sql_medicine);
-            // $total_medicine = mysqli_num_rows($run_medicine);
-            ?>
-            <!-- <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-briefcase-medical"></i></span>
-                <a href="medicine_master.php">
-                  <div class="info-box-content">
-                    <span class="info-box-text">Medicine</span>
-                    <span class="info-box-number"><?php echo $total_medicine ?></span>
-                  </div>
-                </a>
-              </div>
-            </div> -->
             <!-- /.col -->
             <!-- <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">

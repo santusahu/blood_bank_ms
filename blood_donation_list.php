@@ -74,8 +74,10 @@ $module_name = "Donation";
                         while ($row33 = mysqli_fetch_assoc($run33)) {
                           $tbl_id = base64_encode($row33['id']);
                           $status = $row33['status'];
+                          $btn_dsable = "";
                           if ($status == 1) {
                             $donation_status = "Approved";
+                            $btn_dsable = "disabled";
                           } else if ($status == 2) {
                             $donation_status = "Rejected";
                           } else {
@@ -89,8 +91,10 @@ $module_name = "Donation";
                             <td><?php echo $row33['unit']; ?></td>
                             <td><?php echo $donation_status; ?></td>
                             <td style="text-align: center;">
-                              <a title="Blood Donation Edit" href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
-                              <a title="Blood Donation" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                              <?php if($status == 0){ ?>
+                                <a title="Blood Donation Edit" href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                <a title="Blood Donation" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                              <?php } ?>
                             </td>
                           </tr>
                       <?php

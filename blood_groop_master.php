@@ -1,10 +1,10 @@
 <?php
 include_once "session.php";
-$pagename = "blood_groop_master.php";
-$pagename_1 = "blood_groop_list.php";
+$pagename = "blood_group_master.php";
+$pagename_1 = "blood_group_list.php";
 
 $status = $head_quarter_id = 0;
-$tabel_name = "blood_groop_master";
+$tabel_name = "blood_group_master";
 $module_name = "Blood Group";
 // $display_form_section = "display:none";
 ?>
@@ -14,34 +14,34 @@ $module_name = "Blood Group";
 <?php
 
 $blood_group_id = 0;
-$blood_groop = "";
+$blood_group = "";
 if (isset($_POST['submit'])) {
 
   // print_r($_POST);
   // die;
   $blood_group_id = $_POST['blood_group_id'];
-  $blood_groop = ucfirst($_POST['blood_groop']);
+  $blood_group = ucfirst($_POST['blood_group']);
   $current_date_time = date('Y-m-d H:i:s');
   if ($blood_group_id == 0) { // insert 
-    $query = " INSERT INTO $tabel_name( `blood_groop`, `create_date`, `update_date`) VALUES ('$blood_groop', '$current_date_time', '$current_date_time') ";
+    $query = " INSERT INTO $tabel_name( `blood_group`, `create_date`, `update_date`) VALUES ('$blood_group', '$current_date_time', '$current_date_time') ";
     $run = mysqli_query($con, $query);
     if ($run) {
       $msg = 1; // inserted 
-      $message = $blood_groop . " Added Successfull  "; // inserted 
+      $message = $blood_group . " Added Successfull  "; // inserted 
     } else {
       $msg = 3; // not added
-      $message = "Error Unable to Add " . $blood_groop . " Try again"; // inserted 
+      $message = "Error Unable to Add " . $blood_group . " Try again"; // inserted 
     }
   } else { // update
-    $update_sql = "UPDATE $tabel_name SET blood_groop = '$blood_groop' , update_date = '$current_date_time' WHERE id = '$blood_group_id' ";
+    $update_sql = "UPDATE $tabel_name SET blood_group = '$blood_group' , update_date = '$current_date_time' WHERE id = '$blood_group_id' ";
     $run = mysqli_query($con, $update_sql);
     if ($run) {
       $msg = 2; // updated 
-      $message = $blood_groop . " Successfull Updated "; // inserted 
+      $message = $blood_group . " Successfull Updated "; // inserted 
 
     } else {
       $msg = 4; // not updated 
-      $message = "Error Unable to Update " . $blood_groop; // inserted 
+      $message = "Error Unable to Update " . $blood_group; // inserted 
     }
   } 
   ?>
@@ -64,7 +64,7 @@ if (isset($_REQUEST['tbl_id'])) {
   $sql1 = " SELECT * From $tabel_name WHERE id = '$blood_group_id' ";
   $run1 = mysqli_query($con, $sql1);
   $row1 = mysqli_fetch_assoc($run1);
-  $blood_groop = $row1['blood_groop'];
+  $blood_group = $row1['blood_group'];
 }
 ?>
 <!DOCTYPE html>
@@ -109,9 +109,9 @@ if (isset($_REQUEST['tbl_id'])) {
                 <form action="" method="POST">
                   <div class="row card-body">
                     <div class="col-md-6 form-group">
-                      <label for="blood_groop ">Blood Group</label>
+                      <label for="blood_group ">Blood Group</label>
                       <input type="hidden" name="blood_group_id" value="<?php echo $blood_group_id; ?>">
-                      <input type="text" class="form-control" value="<?php echo $blood_groop; ?>" id="blood_groop" name="blood_groop" placeholder="Enter Blood Group" required>
+                      <input type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter Blood Group" required>
                     </div>
                   </div>
                   <div class="card-footer">

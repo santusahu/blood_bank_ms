@@ -2,11 +2,11 @@
 include_once "session.php";
 $pagename = "blood_donation_AR.php";
 $pagename_1 = "blood_donation_list.php";
-$page_module = 'Donar';
+$page_module = 'Patient';
 
 $status = $head_quarter_id = 0;
 $tabel_name = "blood_donation";
-$module_name = "Blood Donation Approval/Rejection";
+$module_name = "Blood Enquiry Approval/Rejection";
 // $display_form_section = "display:none";
 ?>
 
@@ -154,7 +154,7 @@ $module_name = "Blood Donation Approval/Rejection";
                     <input type="hidden" name="donation_id" value="<?php echo $donation_id; ?>">
 
                     <div class="col-md-6 form-group">
-                      <label for="donar_name">donar_name</label>
+                      <label for="donar_name">Donar Name</label>
                       <input readonly type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter address" required>
                     </div>
 

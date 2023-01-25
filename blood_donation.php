@@ -7,6 +7,7 @@ $page_module = 'Donar';
 $status = $head_quarter_id = 0;
 $tabel_name = "blood_donation";
 $module_name = "Blood Donation";
+$current_date_time = date('Y-m-d H:i:s');
 // $display_form_section = "display:none";
 ?>
 
@@ -63,7 +64,7 @@ $module_name = "Blood Donation";
 
                   if ($donation_id > 0) {
                     // update data
-                    $update_query = "UPDATE $tabel_name SET `donar_id`='$donar_id',`unit`='$unit'WHERE id = '$donation_id' ";
+                    $update_query = "UPDATE $tabel_name SET `donar_id`='$donar_id',`unit`= '$unit', update_date = '$current_date_time' WHERE id = '$donation_id' ";
                     $run1 = mysqli_query($con, $update_query);
                     if ($run1) {
                     $msg_show = "Updated";
@@ -72,8 +73,8 @@ $module_name = "Blood Donation";
                     $msg_show = "somthing went wrong!!!";
                     } 
                   } else {
-                    // insertc data
-                    $query = "INSERT INTO $tabel_name SET donar_id = '$donar_id' , unit = '$unit' ";
+                    // insert data
+                    $query = "INSERT INTO $tabel_name SET donar_id = '$donar_id' , unit = '$unit', create_date = '$current_date_time' , update_date = '$current_date_time'";
                     $run = mysqli_query($con, $query);
                     if ($run) {
                       $msg_show = "Inserted";
