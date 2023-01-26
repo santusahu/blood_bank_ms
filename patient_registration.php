@@ -9,14 +9,79 @@ $tabel_name = "patient_registration";
 $module_name = "Patient Registration";
 $current_date_time = date('Y-m-d H:i:s');
 // $display_form_section = "display:none";
+?>
 
+<!-- Insering and update -->
+<?php
+
+  $patient_id = 0;
+  $blood_group = "";
+  $patient_name = "";
+  $mobile_number = "";
+  $email = "";
+  $address = "";
+if (isset($_POST['submit'])) {
+  // print_r($_POST);  
+  $patient_id = $_POST['id'];
+  $patient_name = $_POST['patient_name'];
+  $blood_group = $_POST['blood_group'];
+  $mobile_number = $_POST['mobile_number'];
+  $email = $_POST['email'];
+  $address = $_POST['address'];
+
+  if ($patient_id > 0) {
+    // update data
+    $update_query = "UPDATE $tabel_name SET `patient_name`='$patient_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address',update_date = '$current_date_time' WHERE id = '$patient_id' ";
+    $run1 = mysqli_query($con, $update_query);
+    if ($run1) {
+      $msg_show = "Updated";
+      $msg = 1;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  } else {
+    // insert data
+    $query = "INSERT INTO $tabel_name SET patient_name = '$patient_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address',create_date = '$current_date_time' , update_date = '$current_date_time' ";
+    $run = mysqli_query($con, $query);
+    if ($run) {
+      $msg_show = "Inserted";
+      $msg = 2;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  }
+  ?>
+  <script>
+    alert('<?php echo $msg_show; ?>')
+    var msg = "<?php echo $msg; ?>"
+    if (msg < 3) {
+      window.location = '<?php echo $pagename_1 ?>';
+    }
+  </script>
+  <?php
+}
 
 ?>
 
+<!-- geting data -->
+<?php
+if (isset($_REQUEST['tbl_id'])) {
+  $patient_id = base64_decode($_REQUEST['tbl_id']);
+  $sql1 = " SELECT * From $tabel_name WHERE id = '$patient_id' ";
+  $run1 = mysqli_query($con, $sql1);
+  $row1 = mysqli_fetch_assoc($run1);
+  $patient_id = $row1['id'];
+  $patient_name = $row1['patient_name'];
+  $blood_group = $row1['blood_group'];
+  $mobile_number = $row1['mobile_number'];
+  $email = $row1['email'];
+  $address = $row1['address'];
+}
+?>
+<!-- update  -->
+<?php
 
-
-
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once $head_links; ?>
@@ -55,83 +120,13 @@ $current_date_time = date('Y-m-d H:i:s');
                 <div class="card-header">
                   <h3 class="card-title h3_font_size"><?php echo $module_name; ?> Form</h3>
                 </div>
-                <!-- Insering and update -->
-                <?php
-                if (isset($_POST['submit'])) {
-                  // print_r($_POST);  
-                  $patient_id = $_POST['id'];
-                  $patient_name = $_POST['patient_name'];
-                  $blood_group = $_POST['blood_group'];
-                  $mobile_number = $_POST['mobile_number'];
-                  $email = $_POST['email'];
-                  $address = $_POST['address'];
 
-                  if ($patient_id > 0) {
-                    // update data
-                    $update_query = "UPDATE $tabel_name SET `patient_name`='$patient_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address',update_date = '$current_date_time' WHERE id = '$patient_id' ";
-                    $run1 = mysqli_query($con, $update_query);
-                    if ($run1) {
-                      $msg_show = "Updated";
-                      $msg = 1;
-                    } else {
-                      $msg_show = "somthing went wrong!!!";
-                    }
-                  } else {
-                    // insert data
-                    $query = "INSERT INTO $tabel_name SET patient_name = '$patient_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address',create_date = '$current_date_time' , update_date = '$current_date_time' ";
-                    $run = mysqli_query($con, $query);
-                    if ($run) {
-                      $msg_show = "Inserted";
-                      $msg = 2;
-                    } else {
-                      $msg_show = "somthing went wrong!!!";
-                    }
-                  }
-                ?>
-                  <script>
-                    alert('<?php echo $msg_show; ?>')
-                    var msg = "<?php echo $msg; ?>"
-                    if (msg < 3) {
-                      window.location = '<?php echo $pagename_1 ?>';
-                    }
-                  </script>
-
-                <?php
-
-                }
-                $patient_id = 0;
-                $blood_group = "";
-                $patient_name = "";
-                $mobile_number = "";
-                $email = "";
-                $address = "";
-                ?>
-
-                <!-- geting data -->
-                <?php
-                if (isset($_REQUEST['tbl_id'])) {
-                  $patient_id = base64_decode($_REQUEST['tbl_id']);
-                  $sql1 = " SELECT * From $tabel_name WHERE id = '$patient_id' ";
-                  $run1 = mysqli_query($con, $sql1);
-                  $row1 = mysqli_fetch_assoc($run1);
-                  $patient_id = $row1['id'];
-                  $patient_name = $row1['patient_name'];
-                  $blood_group = $row1['blood_group'];
-                  $mobile_number = $row1['mobile_number'];
-                  $email = $row1['email'];
-                  $address = $row1['address'];
-                }
-                ?>
-                <!-- update  -->
-                <?php
-
-                ?>
                 <!-- form start -->
                 <form action="" method="POST">
                   <div class="row card-body">
                     <div class="col-md-6 form-group">
                       <label for="patient_name ">Name</label>
-                      <input type="hidden" name="patient_id" value="<?php echo $patient_id; ?>">
+                      <input type="hidden" name="id" value="<?php echo $patient_id; ?>">
                       <input type="text" class="form-control" value="<?php echo $patient_name; ?>" id="patient_name" name="patient_name" placeholder="Enter Name" required>
                     </div>
 
@@ -139,8 +134,8 @@ $current_date_time = date('Y-m-d H:i:s');
                     <div class="col-md-6 form-group">
                       <label for="blood_group ">Blood Group</label>
                       <?php
-                         $schema = "SELECT id , blood_group FROM blood_group_master";
-                        $run = mysqli_query($con, $schema);
+                      $schema = "SELECT id , blood_group FROM blood_group_master";
+                      $run = mysqli_query($con, $schema);
                       ?>
                       <select class="custom-select form-control" name="blood_group" id="blood_group">
                         <option value="">Select Blood Group</option>

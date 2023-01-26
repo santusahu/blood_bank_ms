@@ -5,10 +5,78 @@ $pagename_1 = "blood_donation_list.php";
 $page_module = 'Patient';
 
 $status = $head_quarter_id = 0;
-$tabel_name = "blood_donation";
+$tabel_name = "blood_enquiry";
 $module_name = "Blood Enquiry Approval/Rejection";
 // $display_form_section = "display:none";
+
+
 ?>
+<?php
+
+$enquiry_id = 0;
+$blood_group = "";
+$patient_id = "";
+$mobile_number = "";
+$email = "";
+$unit = "";
+?>
+
+
+<!-- Insering and update -->
+<?php
+if (isset($_POST['submit'])) {
+  print_r($_POST); die;
+  $enquiry_id = $_POST['enquiry_id'];
+  $unit = $_POST['unit'];
+  $status = $_POST['status'];
+  $blood_group = $_POST['blood_group'];
+
+  $update_query = "UPDATE $tabel_name SET `blood_group` = '$blood_group' ,`status`='$status',`unit`='$unit' WHERE id = '$enquiry_id' ";
+  $run1 = mysqli_query($con, $update_query);
+  if ($run1) {
+    if ($status == 1) {
+      $msg_show = "Approved";
+      $update_query1 = "UPDATE blood_group_master SET `stock`= stock - $unit WHERE `blood_group` = '$blood_group'  ";
+      $run2 = mysqli_query($con, $update_query1);
+    } else if ($status == 2) {
+      $msg_show = "Rejected";
+    }
+    $msg = 1;
+  } else {
+    $msg = 3;
+    $msg_show = "somthing went wrong!!!";
+  }
+}
+?>
+
+<script>
+  alert('<?php echo $msg_show; ?>')
+  var msg = "<?php echo $msg; ?>"
+  if (msg < 3) {
+    window.location = '<?php echo $pagename_1 ?>';
+  }
+</script>
+
+<!-- geting data -->
+<?php
+if (isset($_REQUEST['tbl_id'])) {
+  $enquiry_id = base64_decode($_REQUEST['tbl_id']);
+  $sql1 = " SELECT $tabel_name.* , patient_registration.patient_name , patient_registration.blood_group From $tabel_name LEFT JOIN patient_registration on 
+                       $tabel_name.patient_id = patient_registration.id
+                       WHERE $tabel_name.id = '$enquiry_id' ";
+  // $sql1 = " SELECT * From $tabel_name WHERE id = '$enquiry_id' ";
+  $run1 = mysqli_query($con, $sql1);
+  $row1 = mysqli_fetch_assoc($run1);
+  $enquiry_id = $row1['id'];
+  $patient_id = $row1['patient_id'];
+  $patient_name = $row1['patient_name'];
+  $blood_group = $row1['blood_group'];
+  $unit = $row1['unit'];
+}
+?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,114 +116,15 @@ $module_name = "Blood Enquiry Approval/Rejection";
                 <div class="card-header">
                   <h3 class="card-title h3_font_size"><?php echo $module_name; ?> Form</h3>
                 </div>
-                <!-- Insering and update -->
-                <?php
-                if (isset($_POST['submit'])) {
-                  // print_r($_POST); die;
-                  $donation_id = $_POST['donation_id'];
-                  $unit = $_POST['unit'];
-                  $status = $_POST['status'];
-                  $blood_group = $_POST['blood_group'];
 
-                  $update_query = "UPDATE $tabel_name SET `blood_group` = '$blood_group' ,`status`='$status',`unit`='$unit' WHERE id = '$donation_id' ";
-                  $run1 = mysqli_query($con, $update_query);
-                  if ($run1) {
-
-                    if ($status == 1) {
-                      $update_query1 = "UPDATE blood_group_master SET `stock`= stock + $unit WHERE `blood_group` = '$blood_group'  ";
-                      $run2 = mysqli_query($con, $update_query1);
-                    }
-                    //  echo  $status_is = "Donation " .($status > 0 ? ($status == 1 ? 'Approved' : 'Rejected') : "Pending Try again!!");
-                    // echo "Updated";
-                  } else {
-                    echo "somthing went wrong!!!";
-                  }
-                }
-
-
-                $donation_id = 0;
-                $blood_group = "";
-                $donar_id = "";
-                $mobile_number = "";
-                $email = "";
-                $unit = "";
-                ?>
-
-                <!-- geting data -->
-                <?php
-                if (isset($_REQUEST['tbl_id'])) {
-                  $donation_id = base64_decode($_REQUEST['tbl_id']);
-                  $sql1 = " SELECT $tabel_name.* , donar_registration.donar_name , donar_registration.blood_group From $tabel_name LEFT JOIN donar_registration on 
-                       $tabel_name.donar_id = donar_registration.id
-                       WHERE $tabel_name.id = '$donation_id' ";
-                  // $sql1 = " SELECT * From $tabel_name WHERE id = '$donation_id' ";
-                  $run1 = mysqli_query($con, $sql1);
-                  $row1 = mysqli_fetch_assoc($run1);
-                  $donation_id = $row1['id'];
-                  $donar_id = $row1['donar_id'];
-                  $donar_name = $row1['donar_name'];
-                  $blood_group = $row1['blood_group'];
-                  $unit = $row1['unit'];
-                }
-                ?> <?php
-                    if (isset($_POST['submit'])) {
-                      // print_r($_POST);
-                      $donation_id = $_POST['donation_id'];
-                      $donar_id = $_POST['donar_id'];
-                      $unit = $_POST['unit'];
-                      $status = 0;
-
-                      if ($donation_id > 0) {
-                        // update data
-                        $update_query = "UPDATE $tabel_name SET `donar_id`='$donar_id',`unit`= '$unit' WHERE id = '$donation_id' ";
-                        $run1 = mysqli_query($con, $update_query);
-                        if ($run1) {
-                          $msg_show = "Updated";
-                          $msg = 1;
-                        } else {
-                          $msg_show = "somthing went wrong!!!";
-                        }
-                      } else {
-                        // insert data
-                        $query = "INSERT INTO $tabel_name SET donar_id = '$donar_id' , unit = '$unit' ";
-                        $run = mysqli_query($con, $query);
-                        if ($run) {
-                          $msg_show = "Inserted";
-                          $msg = 2;
-                        } else {
-                          $msg_show = "somthing went wrong!!!";
-                        }
-                      }
-                    }
-                    ?>
-                <script>
-                  alert('<?php echo $msg_show; ?>')
-                  var msg = "<?php echo $msg; ?>"
-                  if (msg < 3) {
-                    window.location = '<?php echo $pagename_1 ?>';
-                  }
-                </script>
-                <?php
-
-                $donation_id = 0;
-                $blood_group = "";
-                $donar_id = "";
-                $mobile_number = "";
-                $email = "";
-                $unit = "";
-                ?>
-                <!-- update  -->
-                <?php
-
-                ?>
                 <!-- form start -->
                 <form action="" method="POST">
                   <div class="row card-body">
-                    <input type="hidden" name="donation_id" value="<?php echo $donation_id; ?>">
+                    <input type="hidden" name="enquiry_id" value="<?php echo $enquiry_id; ?>">
 
                     <div class="col-md-6 form-group">
-                      <label for="donar_name">Donar Name</label>
-                      <input readonly type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter address" required>
+                      <label for="patient_name">Donar Name</label>
+                      <input readonly type="text" class="form-control" value="<?php echo $patient_name; ?>" id="patient_name" name="patient_name" placeholder="Enter address" required>
                     </div>
 
                     <div class="col-md-6 form-group">

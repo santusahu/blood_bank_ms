@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ABMS Login</title>
+  <title>Login Page</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -15,13 +15,12 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center" style="position: relative;">
-    <img src="Images/logo/logo2.jpeg" alt="ABMS Pharma" class="brand-image elevation-3" style="opacity: .8;width: 60%;">
-
+      <h3>Blood Bank Management</h3>
+    <img src="Images/logo/blood_bank.jpeg" alt="Blood Bank" class="brand-image elevation-3" style="opacity: .8;width: 30%;">
       <!-- <a href="index.php" class="h1"><b>Admin</b>LTE</a> -->
     </div>
     <div class="card-body">
       <p class="login-box-msg">Login with your Mobile No. and Password</p>
-
       <form action="chacklogin.php" method="post" autocomplete="off">
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="user_id" placeholder="Mobile" minlength="10" maxlength="10" onkeypress="return isNumber(event);" required >

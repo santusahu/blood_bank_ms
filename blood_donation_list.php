@@ -4,7 +4,6 @@ $page_module = "Donar";
 $pagename = "blood_donation_list.php";
 $pagename1 = "blood_donation_AR.php";
 $insert_page = "blood_donation.php";
-$status = $head_quarter_id = 0;
 $tabel_name = "blood_donation";
 $module_name = "Donation";
 // $display_form_section = "display:none";
@@ -59,7 +58,7 @@ $module_name = "Donation";
                     </thead>
                     <tbody>
                       <?php
-                      $sql33 = " SELECT $tabel_name.* , donar_registration.donar_name , donar_registration.blood_group From $tabel_name LEFT JOIN donar_registration on 
+                        $sql33 = " SELECT $tabel_name.* , donar_registration.donar_name , donar_registration.blood_group From $tabel_name LEFT JOIN donar_registration on 
                        $tabel_name.donar_id = donar_registration.id
                        WHERE 1 ";
                       $run33 = mysqli_query($con, $sql33);

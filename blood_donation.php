@@ -11,6 +11,74 @@ $current_date_time = date('Y-m-d H:i:s');
 // $display_form_section = "display:none";
 ?>
 
+<?php
+$donation_id = 0;
+$blood_group = "";
+$donar_id = "";
+$mobile_number = "";
+$email = "";
+$unit = "";
+?>
+<!-- Insering and update -->
+<?php
+if (isset($_POST['submit'])) {
+  // print_r($_POST);
+  $donation_id = $_POST['donation_id'];
+  $donar_id = $_POST['donar_id'];
+  $unit = $_POST['unit'];
+  $status = 0;
+
+  if ($donation_id > 0) {
+    // update data
+    $update_query = "UPDATE $tabel_name SET `donar_id`='$donar_id',`unit`= '$unit', update_date = '$current_date_time' WHERE id = '$donation_id' ";
+    $run1 = mysqli_query($con, $update_query);
+    if ($run1) {
+      $msg_show = "Updated";
+      $msg = 1;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  } else {
+    // insert data
+    $query = "INSERT INTO $tabel_name SET donar_id = '$donar_id' , unit = '$unit', create_date = '$current_date_time' , update_date = '$current_date_time'";
+    $run = mysqli_query($con, $query);
+    if ($run) {
+      $msg_show = "Inserted";
+      $msg = 2;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  }
+}
+?>
+<script>
+  alert('<?php echo $msg_show; ?>')
+  var msg = "<?php echo $msg; ?>"
+  if (msg < 3) {
+    window.location = '<?php echo $pagename_1 ?>';
+  }
+</script>
+
+
+<!-- geting data -->
+<?php
+if (isset($_REQUEST['tbl_id'])) {
+  $donation_id = base64_decode($_REQUEST['tbl_id']);
+  $sql1 = " SELECT * From $tabel_name WHERE id = '$donation_id' ";
+  $run1 = mysqli_query($con, $sql1);
+  $row1 = mysqli_fetch_assoc($run1);
+  $donation_id = $row1['id'];
+  $donar_id = $row1['donar_id'];
+  $blood_group = $row1['blood_group'];
+  $unit = $row1['unit'];
+}
+
+if (isset($_REQUEST['donar_id'])) {
+
+  $donar_id = base64_decode($_REQUEST['donar_id']);
+}
+?>
+
 
 
 
@@ -53,78 +121,7 @@ $current_date_time = date('Y-m-d H:i:s');
                 <div class="card-header">
                   <h3 class="card-title h3_font_size"><?php echo $module_name; ?> Form</h3>
                 </div>
-                <!-- Insering and update -->
-                <?php
-                if (isset($_POST['submit'])) {
-                  // print_r($_POST);
-                  $donation_id = $_POST['donation_id'];
-                  $donar_id = $_POST['donar_id'];
-                  $unit = $_POST['unit'];
-                  $status = 0;
 
-                  if ($donation_id > 0) {
-                    // update data
-                    $update_query = "UPDATE $tabel_name SET `donar_id`='$donar_id',`unit`= '$unit', update_date = '$current_date_time' WHERE id = '$donation_id' ";
-                    $run1 = mysqli_query($con, $update_query);
-                    if ($run1) {
-                    $msg_show = "Updated";
-                    $msg = 1;
-                    } else {
-                    $msg_show = "somthing went wrong!!!";
-                    } 
-                  } else {
-                    // insert data
-                    $query = "INSERT INTO $tabel_name SET donar_id = '$donar_id' , unit = '$unit', create_date = '$current_date_time' , update_date = '$current_date_time'";
-                    $run = mysqli_query($con, $query);
-                    if ($run) {
-                      $msg_show = "Inserted";
-                      $msg = 2;
-                    } else {
-                      $msg_show = "somthing went wrong!!!";
-                    }
-                  }
-                }
-                ?>
-                <script>
-                  alert('<?php echo $msg_show; ?>')
-                  var msg = "<?php echo $msg; ?>"
-                  if (msg < 3) {
-                    window.location = '<?php echo $pagename_1 ?>';
-                  }
-                  </script>
-                <?php
-
-                $donation_id = 0;
-                $blood_group = "";
-                $donar_id = "";
-                $mobile_number = "";
-                $email = "";
-                $unit = "";
-                ?>
-
-                <!-- geting data -->
-                <?php
-                if (isset($_REQUEST['tbl_id'])) {
-                  $donation_id = base64_decode($_REQUEST['tbl_id']);
-                  $sql1 = " SELECT * From $tabel_name WHERE id = '$donation_id' ";
-                  $run1 = mysqli_query($con, $sql1);
-                  $row1 = mysqli_fetch_assoc($run1);
-                  $donation_id = $row1['id'];
-                  $donar_id = $row1['donar_id'];
-                  $blood_group = $row1['blood_group'];
-                  $unit = $row1['unit'];
-                }
-
-                if (isset($_REQUEST['donar_id'])) {
-
-                  $donar_id = base64_decode($_REQUEST['donar_id']);
-
-                }
-                ?>
-                <!-- update  -->
-                <?php
-
-                ?>
                 <!-- form start -->
                 <form action="" method="POST">
                   <div class="row card-body">
@@ -141,7 +138,7 @@ $current_date_time = date('Y-m-d H:i:s');
                         <?php
                         while ($row = mysqli_fetch_assoc($run)) {
                           $abc = "";
-                          if($donar_id == $row['id']){
+                          if ($donar_id == $row['id']) {
                             $abc = "selected";
                           }
                         ?>

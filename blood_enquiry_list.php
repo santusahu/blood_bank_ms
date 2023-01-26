@@ -2,10 +2,10 @@
 include_once "session.php";
 $pagename = "blood_enquiry_list.php";
 $pagename1 = "blood_enquiry_AR.php";
-$insert_page = "donar_registration.php";
+$insert_page = "blood_enquiry.php";
 $status = $patient_id = 0;
-$tabel_name = "donar_registration";
-$module_name = "Patient";
+$tabel_name = "blood_enquiry";
+$module_name = "Blood Enquiry";
 $page_module = "Patient";
 // $display_form_section = "display:none";
 ?>
@@ -51,14 +51,15 @@ $page_module = "Patient";
                                             <tr>
                                                 <th>S.no</th>
                                                 <th>Name</th>
-                                                <th>Blood Group</th>
                                                 <th>Mobile Number</th>
+                                                <th>Blood Group</th>
+                                                <th>Unit</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $sql33 = " SELECT * From $tabel_name WHERE 1 ";
+                                            $sql33 = " SELECT $tabel_name.* , patient_registration.patient_name , patient_registration.mobile_number From $tabel_name LEFT JOIN patient_registration ON patient_registration.id = $tabel_name.patient_id WHERE 1 ";
                                             $run33 = mysqli_query($con, $sql33);
                                             $count_rows = mysqli_num_rows($run33);
                                             $sno = 1;
@@ -73,11 +74,12 @@ $page_module = "Patient";
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sno; ?></td>
-                                                        <td><?php echo $row33['donar_name']; ?></td>
-                                                        <td><?php echo $row33['blood_group']; ?></td>
+                                                        <td><?php echo $row33['patient_name']; ?></td>
                                                         <td><?php echo $row33['mobile_number']; ?></td>
+                                                        <td><?php echo $row33['blood_group']; ?></td>
+                                                        <td><?php echo $row33['unit']; ?></td>
                                                         <td style="text-align: center;"><a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
-                                                        <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?patient_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                            <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                                                         </td>
                                                     </tr>
                                             <?php

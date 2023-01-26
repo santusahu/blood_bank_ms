@@ -9,66 +9,82 @@ $page_module = "Patient";
 $current_date_time = date('Y-m-d H:i:s');
 // $display_form_section = "display:none";
 ?>
-<?php 
-$patient_name="";
-?>
-<!-- geting data -->
-<?php
-if (isset($_REQUEST['head_quarter_id'])) {
-    $display_form_section = "display:block";
-
-    $head_quarter_id = base64_decode($_REQUEST['head_quarter_id']);
-    $sql1 = " SELECT * From head_quarter_master WHERE delete_status = 0 AND head_quarter_id = '$head_quarter_id' ";
-    $run1 = mysqli_query($con, $sql1);
-    $row1 = mysqli_fetch_assoc($run1);
-    $patient_name = $row1['patient_name'];
-    $status = $row1['status'];
-}
-?>
-
 <!-- Insering and update -->
 <?php
+$enquiry_id = 0;
 $patient_name = "";
 $blood_group = "";
 $unit = "";
 if (isset($_POST['submit'])) {
-    // $patient_name = $_POST['patient_name'];
-    // $blood_group = $_POST['blood_group'];
-    // $unit = $_POST['unit'];
+    // print_r($_POST);die;
+
+    // SELECT `id`, `patient_id`, `blood_group`, `unit`, `create_date`, `update_date` FROM `blood_enquiry` WHERE 1
+    $enquiry_id = $_POST['id'];
+    $patient_id = $_POST['patient_id'];
+    $blood_group = $_POST['blood_group'];
+    $unit = $_POST['unit'];
+
+
+    if($enquiry_id == 0){
+        $query = "INSERT INTO $tabel_name set  `patient_id` = '$patient_id' ,`blood_group` = '$blood_group' ,`unit` = '$unit' ,`create_date` = '$create_date' ,`update_date` = '$update_date' ";
+        $run = mysqli_query($con,$query);
+    
+        if($run){
+            $msg = 1;
+            $message = "Enquiry generated!!!";
+        }else{
+            $msg = 3;
+            $message = "Somthing Went Wrong";
+        }
+    }else{
+
+        $query = "UPDATE $tabel_name SET `patient_id` = '$patient_id' ,`blood_group` = '$blood_group' ,`unit` = '$unit'  ,`update_date` = '$update_date' WHERE id = $enquiry_id ";
+        $run = mysqli_query($con, $query);
+
+        if ($run) {
+            $msg = 2;
+            $message = "Enquiry Updated!!!";
+        } else {
+            $msg = 3;
+            $message = "Somthing Went Wrong";
+        }
+    }
+
     // $head_quarter_id = $_POST['head_quarter_id'];
     // $patient_name = ucfirst($_POST['patient_name']);
     // $status = $_POST['status'];
 
-    if ($head_quarter_id == 0) { // insert 
-        $insert_sql = "INSERT INTO $tabel_name SET patient_name = '$patient_name' , blood_group = `$blood_group`, unit= `$unit`, create_date = '$current_date_time' , update_date = '$current_date_time' ";
-        $run = mysqli_query($con, $insert_sql);
-        if ($run) {
-            $msg = 1; // inserted 
-            $message = $patient_name . " Added Successfull  "; // inserted 
-        } else {
-            $msg = 3; // not added
-            $message = "Error Unable to Add " . $patient_name . " Try again"; // inserted 
-        }
-    } else { // update
-        $update_sql = "UPDATE head_quarter_master SET patient_name = '$patient_name' , status = '$status', update_date = '$update_date' WHERE head_quarter_id = '$head_quarter_id' ";
-        $run = mysqli_query($con, $update_sql);
-        if ($run) {
-            $msg = 2; // updated 
-            $message = $patient_name . " Successfull Updated "; // inserted 
-
-        } else {
-            $msg = 4; // not updated 
-            $message = "Error Unable to Update " . $patient_name; // inserted 
-        }
-    } ?>
+     ?>
     <script>
         alert('<?php echo $message; ?>')
         var msg = "<?php echo $msg; ?>"
         if (msg < 3) {
-            window.location = '<?php echo $pagename ?>';
+            window.location = '<?php echo $pagename1 ?>';
         }
     </script>
 <?php }
+?>
+
+
+<?php 
+if(isset($_REQUEST['tbl_id'])){
+    $enquiry_id = base64_decode($_REQUEST['tbl_id']);
+    $query = "SELECT * from $tabel_name WHERE id = $enquiry_id ";
+    $run = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($run);
+
+    $patient_id = $row['patient_id'];
+    $blood_group = $row['blood_group'];
+    $unit = $row['unit'];
+
+}
+
+if(isset($_REQUEST['patient_id'])){
+    $patient_id = base64_decode($_REQUEST['patient_id']);
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,12 +105,6 @@ if (isset($_POST['submit'])) {
                         <div class="col-sm-6">
                             <h1>Blood Enquiry </h1>
                         </div>
-                        <!-- <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo $home; ?>">Home</a></li>
-              <li class="breadcrumb-item active">Head Quarter Master</li>
-            </ol>
-          </div> -->
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
@@ -112,12 +122,28 @@ if (isset($_POST['submit'])) {
                                 <!-- form start -->
                                 <form action="" method="POST">
                                     <div class="row card-body">
+                                        <?php
+                                        $schema = "SELECT id , patient_name, mobile_number FROM patient_registration ";
+                                        $run = mysqli_query($con, $schema);
+                                        ?>
+
                                         <div class="col-md-6 form-group">
-                                            <label for="dr_code ">Patient</label>
-                                            <input type="hidden" name="dr_id" value="<?php echo $dr_id; ?>">
-                                            <input type="text" class="form-control" value="<?php echo $patient_name; ?>" id="dr_code" name="dr_code" placeholder="Enter User Name" required>
+                                            <label for="patient_id">Patient</label>
+                                            <input type="hidden" name="id" value="<?php echo $enquiry_id;?>">
+                                            <select class="custom-select form-control" name="patient_id" id="patient_id">
+                                                <option value="">Select Patient</option>
+                                                <?php
+                                                while ($row = mysqli_fetch_assoc($run)) {
+                                                    $abc = "";
+                                                    if ($patient_id == $row['id']) {
+                                                        $abc = "selected";
+                                                    }
+                                                ?>
+                                                    <option <?php echo $abc; ?> value="<?php echo $row['id'] ?>"><?php echo $row['patient_name'] . " (" . $row['mobile_number'] . ")"; ?></option>
+                                                <?php  } ?>
+                                            </select>
                                         </div>
-                                        <!-- dr_name  -->
+
                                         <div class="col-md-6 form-group">
                                             <label for="blood_group ">Blood Group</label>
                                             <?php
@@ -136,12 +162,11 @@ if (isset($_POST['submit'])) {
                                                     <option <?php echo $abc; ?> value="<?php echo $row['blood_group'] ?>"><?php echo $row['blood_group']; ?></option>
                                                 <?php  } ?>
                                             </select>
-                                            <!-- <input type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter Blood Group" required> -->
+                                            
                                         </div>
-                                        <!--  -->
                                         <div class="col-md-6 form-group">
-                                            <label for="dr_name">Blood Unit</label>
-                                            <input type="text" class="form-control" value="<?php echo $unit; ?>" id="dr_name" name="dr_name" placeholder="Enter blood_unit" required>
+                                            <label for="unit">Blood Unit</label>
+                                            <input type="text" class="form-control" value="<?php echo $unit; ?>" id="unit" name="unit" placeholder="Enter blood_unit" required>
                                         </div>
 
                                     </div>
@@ -150,10 +175,10 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </form>
                             </div>
-                        </div><!-- card form end -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </section> <!-- /.content -->
+                        </div>
+                    </div>
+                </div>
+            </section> 
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
