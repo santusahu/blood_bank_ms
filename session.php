@@ -1,5 +1,5 @@
 <?php
-// session_start();
+session_start();
 include_once "config.php";
 
 // pages in variable
@@ -13,14 +13,15 @@ $product_sales_enter = "dr_pro_sales_entery.php";
 // pages in variable end
 
 $create_date = $update_date = date('Y-m-d H:i:s');
+$today = date('Y-m-d');
 
 $crit_area_head = "";
 $crit_dr_area = "";
 
 // *************************************\\
 
-// if ($_SESSION['abms_username'] == '') {
-//   echo "<script>window.location ='".$login_page."'</script>";
-// }
+if ($_SESSION['bb_username'] == '') {
+  echo "<script>window.location ='".$login_page."'</script>";
+}
 
 ?>

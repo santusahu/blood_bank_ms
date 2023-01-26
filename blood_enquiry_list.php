@@ -54,6 +54,7 @@ $page_module = "Patient";
                                                 <th>Mobile Number</th>
                                                 <th>Blood Group</th>
                                                 <th>Unit</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -78,6 +79,7 @@ $page_module = "Patient";
                                                         <td><?php echo $row33['mobile_number']; ?></td>
                                                         <td><?php echo $row33['blood_group']; ?></td>
                                                         <td><?php echo $row33['unit']; ?></td>
+                                                        <td><?php echo date('d-m-Y h:i A', strtotime($row33['create_date'])); ?></td>
                                                         <td style="text-align: center;"><a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                                                             <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                                                         </td>

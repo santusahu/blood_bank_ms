@@ -8,15 +8,75 @@ $status = $head_quarter_id = 0;
 $tabel_name = "donar_registration";
 $module_name = "Donar Registration";
 $current_date_time = date('Y-m-d H:i:s');
-
 // $display_form_section = "display:none";
-
-
 ?>
 
+<!-- Insering and update -->
+<?php
 
+$donar_id = 0;
+$blood_group = "";
+$donar_name = "";
+$mobile_number = "";
+$email = "";
+$address = "";
+if (isset($_POST['submit'])) {
+  // print_r($_POST);  
+  $donar_id = $_POST['donar_id'];
+  $donar_name = $_POST['donar_name'];
+  $blood_group = $_POST['blood_group'];
+  $mobile_number = $_POST['mobile_number'];
+  $email = $_POST['email'];
+  $address = $_POST['address'];
 
+  if ($donar_id > 0) {
+    // update data
+    $update_query = "UPDATE $tabel_name SET `donar_name`='$donar_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address' , update_date = '$current_date_time'  WHERE id = '$donar_id' ";
+    $run1 = mysqli_query($con, $update_query);
+    if ($run1) {
+      $msg_show = "Updated";
+      $msg = 1;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  } else {
+    // insert data
+    $query = "INSERT INTO $tabel_name SET donar_name = '$donar_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address' , create_date = '$current_date_time' , update_date = '$current_date_time' ";
+    $run = mysqli_query($con, $query);
+    if ($run) {
+      $msg_show = "Inserted";
+      $msg = 2;
+    } else {
+      $msg_show = "somthing went wrong!!!";
+    }
+  }
+?>
+  <script>
+    alert('<?php echo $msg_show; ?>')
+    var msg = "<?php echo $msg; ?>"
+    if (msg < 3) {
+      window.location = '<?php echo $pagename_1 ?>';
+    }
+  </script>
+<?php
+}
+?>
 
+<!-- geting data -->
+<?php
+if (isset($_REQUEST['tbl_id'])) {
+  $donar_id = base64_decode($_REQUEST['tbl_id']);
+  $sql1 = " SELECT * From $tabel_name WHERE id = '$donar_id' ";
+  $run1 = mysqli_query($con, $sql1);
+  $row1 = mysqli_fetch_assoc($run1);
+  $donar_id = $row1['id'];
+  $donar_name = $row1['donar_name'];
+  $blood_group = $row1['blood_group'];
+  $mobile_number = $row1['mobile_number'];
+  $email = $row1['email'];
+  $address = $row1['address'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,14 +97,8 @@ $current_date_time = date('Y-m-d H:i:s');
             <div class="col-sm-6">
               <h1><?php echo $module_name; ?></h1>
             </div>
-            <!-- <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo $home; ?>">Home</a></li>
-              <li class="breadcrumb-item active">Head Quarter Master</li>
-            </ol>
-          </div> -->
           </div>
-        </div><!-- /.container-fluid -->
+        </div>
       </section>
 
       <section class="content" id="form_section">
@@ -56,96 +110,24 @@ $current_date_time = date('Y-m-d H:i:s');
                 <div class="card-header">
                   <h3 class="card-title h3_font_size"><?php echo $module_name; ?> Form</h3>
                 </div>
-                <!-- Insering and update -->
-                <?php
-                if (isset($_POST['submit'])) {
-                  // print_r($_POST);  
-                  $donar_id = $_POST['donar_id'];
-                  $donar_name = $_POST['donar_name'];
-                  $blood_group = $_POST['blood_group'];
-                  $mobile_number = $_POST['mobile_number'];
-                  $email = $_POST['email'];
-                  $address = $_POST['address'];
 
-                  if ($donar_id > 0) {
-                    // update data
-                    $update_query = "UPDATE $tabel_name SET `donar_name`='$donar_name',`blood_group`='$blood_group',`mobile_number`='$mobile_number',`email`='$email',`address`='$address' , update_date = '$current_date_time'  WHERE id = '$donar_id' ";
-                    $run1 = mysqli_query($con, $update_query);
-                    if ($run1) {
-                      $msg_show = "Updated";
-                      $msg = 1;
-                    } else {
-                      $msg_show = "somthing went wrong!!!";
-                    }
-                  } else {
-                    // insert data
-                    $query = "INSERT INTO $tabel_name SET donar_name = '$donar_name' , blood_group = '$blood_group' , mobile_number = '$mobile_number' , email = '$email' , `address` = '$address' , create_date = '$current_date_time' , update_date = '$current_date_time' ";
-                    $run = mysqli_query($con, $query);
-                    if ($run) {
-                      $msg_show = "Inserted";
-                      $msg = 2;
-                    } else {
-                      $msg_show = "somthing went wrong!!!";
-                    }
-                  }
-                ?>
-                  <script>
-                    alert('<?php echo $msg_show; ?>')
-                    var msg = "<?php echo $msg; ?>"
-                    if (msg < 3) {
-                      window.location = '<?php echo $pagename_1 ?>';
-                    }
-                  </script>
-
-                <?php
-
-                }
-
-
-                $donar_id = 0;
-                $blood_group = "";
-                $donar_name = "";
-                $mobile_number = "";
-                $email = "";
-                $address = "";
-                ?>
-
-                <!-- geting data -->
-                <?php
-                if (isset($_REQUEST['tbl_id'])) {
-                  $donar_id = base64_decode($_REQUEST['tbl_id']);
-                  $sql1 = " SELECT * From $tabel_name WHERE id = '$donar_id' ";
-                  $run1 = mysqli_query($con, $sql1);
-                  $row1 = mysqli_fetch_assoc($run1);
-                  $donar_id = $row1['id'];
-                  $donar_name = $row1['donar_name'];
-                  $blood_group = $row1['blood_group'];
-                  $mobile_number = $row1['mobile_number'];
-                  $email = $row1['email'];
-                  $address = $row1['address'];
-                }
-                ?>
-                <!-- update  -->
-                <?php
-
-                ?>
                 <!-- form start -->
                 <form action="" method="POST">
                   <div class="row card-body">
                     <div class="col-md-6 form-group">
-                      <label for="donar_name ">Name</label>
+                      <label for="donar_name ">Name <span style="color: red;">*</span></label>
                       <input type="hidden" name="donar_id" value="<?php echo $donar_id; ?>">
-                      <input type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter Name" required>
+                      <input type="text" onkeypress="return alphaOnly(event)" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter Name" required>
                     </div>
 
 
                     <div class="col-md-6 form-group">
-                      <label for="blood_group ">Blood Group</label>
+                      <label for="blood_group ">Blood Group <span style="color: red;">*</span></label>
                       <?php
-                        $schema = "SELECT id , blood_group FROM blood_group_master";
-                        $run = mysqli_query($con, $schema);
+                      $schema = "SELECT id , blood_group FROM blood_group_master";
+                      $run = mysqli_query($con, $schema);
                       ?>
-                      <select class="custom-select form-control" name="blood_group" id="blood_group">
+                      <select class="custom-select form-control" name="blood_group" id="blood_group" required>
                         <option value="">Select Blood Group</option>
                         <?php
                         while ($row = mysqli_fetch_assoc($run)) {
@@ -161,8 +143,8 @@ $current_date_time = date('Y-m-d H:i:s');
                     </div>
 
                     <div class="col-md-6 form-group">
-                      <label for="mobile_number ">Mobile number</label>
-                      <input type="text" class="form-control" value="<?php echo $mobile_number; ?>" id="mobile_number" name="mobile_number" placeholder="Enter mobile_number" required>
+                      <label for="mobile_number ">Mobile number <span style="color: red;">*</span></label>
+                      <input type="text" minlength="10" maxlength="10" onkeypress="return isNumber(event)" class="form-control" value="<?php echo $mobile_number; ?>" id="mobile_number" name="mobile_number" placeholder="Enter mobile_number" required>
                     </div>
 
                     <div class="col-md-6 form-group">
