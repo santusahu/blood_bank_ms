@@ -1,3 +1,9 @@
+<?php 
+if(isset($_REQUEST['msg'])){
+  echo "<script>alert('Wrong user id password')</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +21,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center" style="position: relative;">
-      <h3>Blood Bank Management</h3>
+      <h3>Blood Bank Management System</h3>
     <img src="Images/logo/blood_bank.jpeg" alt="Blood Bank" class="brand-image elevation-3" style="opacity: .8;width: 30%;">
       <!-- <a href="index.php" class="h1"><b>Admin</b>LTE</a> -->
     </div>

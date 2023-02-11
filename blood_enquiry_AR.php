@@ -19,24 +19,28 @@ $patient_id = "";
 $mobile_number = "";
 $email = "";
 $unit = "";
+$ar_msg  = "";
 ?>
 
 
 <!-- Insering and update -->
 <?php
 if (isset($_POST['submit'])) {
-  print_r($_POST); die;
+  // print_r($_POST);
+  // die;
   $enquiry_id = $_POST['enquiry_id'];
   $unit = $_POST['unit'];
+  $approved_unit = $_POST['approved_unit'];
   $status = $_POST['status'];
   $blood_group = $_POST['blood_group'];
 
-  $update_query = "UPDATE $tabel_name SET `blood_group` = '$blood_group' ,`status`='$status',`unit`='$unit' WHERE id = '$enquiry_id' ";
+
+  $update_query = "UPDATE $tabel_name SET `blood_group` = '$blood_group' ,`status`='$status',`approved_unit`='$approved_unit' WHERE id = '$enquiry_id' ";
   $run1 = mysqli_query($con, $update_query);
   if ($run1) {
     if ($status == 1) {
       $msg_show = "Approved";
-      $update_query1 = "UPDATE blood_group_master SET `stock`= stock - $unit WHERE `blood_group` = '$blood_group'  ";
+      $update_query1 = "UPDATE blood_group_master SET `stock`= stock - $approved_unit WHERE `blood_group` = '$blood_group'  ";
       $run2 = mysqli_query($con, $update_query1);
     } else if ($status == 2) {
       $msg_show = "Rejected";
@@ -72,6 +76,7 @@ if (isset($_REQUEST['tbl_id'])) {
   $patient_name = $row1['patient_name'];
   $blood_group = $row1['blood_group'];
   $unit = $row1['unit'];
+  $approved_unit =  $row1['approved_unit'] != 0 ? $row1['approved_unit'] : '';
 }
 ?>
 
@@ -128,13 +133,18 @@ if (isset($_REQUEST['tbl_id'])) {
                     </div>
 
                     <div class="col-md-6 form-group">
-                      <label for="blood_group">blood_group</label>
-                      <input readonly type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter address" required>
+                      <label for="blood_group">Blood Group</label>
+                      <input readonly type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter Blood Group" required>
                     </div>
+
 
                     <div class="col-md-6 form-group">
                       <label for="unit">Unit</label>
-                      <input type="text" class="form-control" value="<?php echo $unit; ?>" id="unit" name="unit" placeholder="Enter address" required>
+                      <input readonly type="text" class="form-control" value="<?php echo $unit; ?>" id="unit" name="unit" placeholder="Enter address" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="approved_unit">Approved Unit</label>
+                      <input type="text" onkeypress="return isNumber(event)" class="form-control" value="<?php echo $approved_unit; ?>" id="approved_unit" name="approved_unit" placeholder="Enter Approved Unit" required>
                     </div>
                     <div class="col-md-6 form-group">
                       <label for="status">status</label>
@@ -144,6 +154,10 @@ if (isset($_REQUEST['tbl_id'])) {
                         <option value="1">Approved</option>
                         <option value="2">Rejected</option>
                       </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="ar_msg">Approval / Rejection Massage</label>
+                      <input type="text" class="form-control" value="<?php echo $ar_msg; ?>" id="ar_msg" name="ar_msg" placeholder="Enter Approval / Rejection Massage">
                     </div>
 
                   </div>

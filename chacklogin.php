@@ -11,9 +11,7 @@ if (isset($_POST['chacklogin'])) {
 	// $myusername = md5(addslashes($myusername1));
 	// $mypassword = md5(addslashes($mypassword1));
 
-	// SELECT `user_id`, `user_type`, `user_name`, `email`, `mobile`, `area_id`, `area_name`, `password`, `old_password`, `salt`, `old_salt`, `status`, `delete_status`, `create_date`, `update_date`, `delete_date` FROM `bb_users` WHERE 1
-
-	$sql = "SELECT * from users where user_type = 1 AND  mobile ='$myusername' AND password='$mypassword'";
+	$sql = "SELECT * from users where user_type = 1 AND  mobile ='$myusername' AND `password`='$mypassword'";
 	$result = mysqli_query($con,$sql);
 	$count = mysqli_num_rows($result);
 	if($count == 1)

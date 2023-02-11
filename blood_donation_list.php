@@ -1,6 +1,6 @@
 <?php
 include_once "session.php";
-$page_module = "Donar";
+$page_module = "Donor";
 $pagename = "blood_donation_list.php";
 $pagename1 = "blood_donation_AR.php";
 $insert_page = "blood_donation.php";
@@ -49,16 +49,17 @@ $module_name = "Donation";
                     <thead>
                       <tr>
                         <th>S.no</th>
-                        <th>Donar Name</th>
+                        <th>Donor Name</th>
                         <th>Blood Group</th>
                         <th>Unit</th>
                         <th>status</th>
+                        <th>Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                        $sql33 = " SELECT $tabel_name.* , donar_registration.donar_name , donar_registration.blood_group From $tabel_name LEFT JOIN donar_registration on 
+                      $sql33 = " SELECT $tabel_name.* , donar_registration.donar_name , donar_registration.blood_group From $tabel_name LEFT JOIN donar_registration on 
                        $tabel_name.donar_id = donar_registration.id
                        WHERE 1 ";
                       $run33 = mysqli_query($con, $sql33);
@@ -89,8 +90,9 @@ $module_name = "Donation";
                             <td><?php echo $row33['blood_group']; ?></td>
                             <td><?php echo $row33['unit']; ?></td>
                             <td><?php echo $donation_status; ?></td>
+                            <td><?php echo date('d-m-Y h:i A', strtotime($row33['create_date'])); ?></td>
                             <td style="text-align: center;">
-                              <?php if($status == 0){ ?>
+                              <?php if ($status == 0) { ?>
                                 <a title="Blood Donation Edit" href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                                 <a title="Blood Donation" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
                               <?php } ?>

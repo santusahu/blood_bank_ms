@@ -5,8 +5,8 @@ $pagename1 = "blood_donation.php";
 $insert_page = "donar_registration.php";
 $status = $head_quarter_id = 0;
 $tabel_name = "donar_registration";
-$module_name = "Donar";
-$page_module = "Donar";
+$module_name = "Donor";
+$page_module = "Donor";
 // $display_form_section = "display:none";
 ?>
 <!DOCTYPE html>

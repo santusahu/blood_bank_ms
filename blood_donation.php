@@ -2,7 +2,7 @@
 include_once "session.php";
 $pagename = "blood_donation.php";
 $pagename_1 = "blood_donation_list.php";
-$page_module = 'Donar';
+$page_module = 'Donor';
 
 $status = $head_quarter_id = 0;
 $tabel_name = "blood_donation";
@@ -73,15 +73,11 @@ if (isset($_REQUEST['tbl_id'])) {
   $unit = $row1['unit'];
 }
 
+// donar is selected from this code
 if (isset($_REQUEST['donar_id'])) {
-
   $donar_id = base64_decode($_REQUEST['donar_id']);
 }
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +128,7 @@ if (isset($_REQUEST['donar_id'])) {
                     ?>
 
                     <div class="col-md-6 form-group">
-                      <label for="donar_id">Donar</label>
+                      <label for="donar_id">Donor</label>
                       <select class="custom-select form-control" name="donar_id" id="donar_id">
                         <option value="">Select Donar</option>
                         <?php

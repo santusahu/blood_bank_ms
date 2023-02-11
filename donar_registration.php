@@ -2,11 +2,11 @@
 include_once "session.php";
 $pagename = "donar_registration.php";
 $pagename_1 = "donar_list.php";
-$page_module = 'Donar';
+$page_module = 'Donor';
 
 $status = $head_quarter_id = 0;
 $tabel_name = "donar_registration";
-$module_name = "Donar Registration";
+$module_name = "Donor Registration";
 $current_date_time = date('Y-m-d H:i:s');
 // $display_form_section = "display:none";
 ?>
@@ -149,7 +149,7 @@ if (isset($_REQUEST['tbl_id'])) {
 
                     <div class="col-md-6 form-group">
                       <label for="email ">Email</label>
-                      <input type="text" class="form-control" value="<?php echo $email; ?>" id="email" name="email" placeholder="Enter email" required>
+                      <input type="email" class="form-control" value="<?php echo $email; ?>" id="email" name="email" placeholder="Enter email" required>
                     </div>
                     <div class="col-md-6 form-group">
                       <label for="address ">Address</label>
@@ -173,11 +173,8 @@ if (isset($_REQUEST['tbl_id'])) {
     <aside class="control-sidebar control-sidebar-dark">
     </aside> <!-- /.control-sidebar -->
   </div><!-- ./wrapper -->
-
   <?php include_once "footer_js_links.php" ?>
-
   <?php include_once "footer_js.php" ?>
-
 </body>
 
 </html>

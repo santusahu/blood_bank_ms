@@ -83,14 +83,14 @@
 
         <li class="nav-header">Transection</li>
         <!-- Sales -->
-        <li class="nav-item  <?php if ($page_module == 'Donar') {
+        <li class="nav-item  <?php if ($page_module == 'Donor') {
                                 echo 'menu-open';
                               } ?>">
-          <a href="#" class="nav-link <?php if ($page_module == 'Donar') {
+          <a href="#" class="nav-link <?php if ($page_module == 'Donor') {
                                         echo 'active';
                                       } ?>">
             <i class="nav-icon far fa-plus-square"></i>
-            <p><i class="fas fa-angle-left right"></i>Donar</p>
+            <p><i class="fas fa-angle-left right"></i>Donor</p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
@@ -98,7 +98,7 @@
                                                                   echo 'active';
                                                                 } ?>">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Donar Register</p>
+                <p>Donor Register</p>
               </a>
             </li>
 
@@ -107,7 +107,7 @@
                                                           echo 'active';
                                                         } ?>">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Donar List</p>
+                <p>Donor List</p>
               </a>
             </li>
             <li class="nav-item">

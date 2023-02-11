@@ -2,7 +2,7 @@
 include_once "session.php";
 $pagename = "blood_donation_AR.php";
 $pagename_1 = "blood_donation_list.php";
-$page_module = 'Donar';
+$page_module = 'Donor';
 
 $status = $head_quarter_id = 0;
 $tabel_name = "blood_donation";
@@ -123,13 +123,13 @@ if (isset($_REQUEST['tbl_id'])) {
                     <input type="hidden" name="donation_id" value="<?php echo $donation_id; ?>">
 
                     <div class="col-md-6 form-group">
-                      <label for="donar_name">donar_name</label>
-                      <input readonly type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter address" required>
+                      <label for="donar_name">Donor Name</label>
+                      <input readonly type="text" class="form-control" value="<?php echo $donar_name; ?>" id="donar_name" name="donar_name" placeholder="Enter Donor Name" required>
                     </div>
 
                     <div class="col-md-6 form-group">
-                      <label for="blood_group">blood_group</label>
-                      <input readonly type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter address" required>
+                      <label for="blood_group">Blood Group</label>
+                      <input readonly type="text" class="form-control" value="<?php echo $blood_group; ?>" id="blood_group" name="blood_group" placeholder="Enter Blood Group" required>
                     </div>
 
                     <div class="col-md-6 form-group">

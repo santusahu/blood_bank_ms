@@ -54,6 +54,7 @@ $page_module = "Patient";
                                                 <th>Mobile Number</th>
                                                 <th>Blood Group</th>
                                                 <th>Unit</th>
+                                                <th>status</th>
                                                 <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
@@ -72,6 +73,16 @@ $page_module = "Patient";
                                             } else {
                                                 while ($row33 = mysqli_fetch_assoc($run33)) {
                                                     $tbl_id = base64_encode($row33['id']);
+                                                    $status = $row33['status'];
+                                                    $btn_dsable = "";
+                                                    if ($status == 1) {
+                                                        $donation_status = "Approved";
+                                                        $btn_dsable = "disabled";
+                                                    } else if ($status == 2) {
+                                                        $donation_status = "Rejected";
+                                                    } else {
+                                                        $donation_status = "pending";
+                                                    }
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $sno; ?></td>
@@ -79,9 +90,13 @@ $page_module = "Patient";
                                                         <td><?php echo $row33['mobile_number']; ?></td>
                                                         <td><?php echo $row33['blood_group']; ?></td>
                                                         <td><?php echo $row33['unit']; ?></td>
+                                                        <td><?php echo $donation_status; ?></td>
                                                         <td><?php echo date('d-m-Y h:i A', strtotime($row33['create_date'])); ?></td>
-                                                        <td style="text-align: center;"><a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
-                                                            <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                        <td style="text-align: center;">
+                                                            <?php if ($status == 0) { ?>
+                                                                <a href="<?php echo $insert_page; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-warning list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                                <a title="Blood Enquiry_AR" href="<?php echo $pagename1; ?>?tbl_id=<?php echo $tbl_id; ?>" class="btn btn-success list_edit_btn"><i class="nav-icon fas fa-edit"></i></a>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                             <?php

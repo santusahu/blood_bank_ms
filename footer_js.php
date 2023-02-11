@@ -1,31 +1,11 @@
 <!-- data table -->
-
-<script>
-  // $(function() {
-  //   $("#example1").DataTable({
-  //     "responsive": true,
-  //     "lengthChange": false,
-  //     "autoWidth": false,
-  //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-  //   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  //   $('#example2').DataTable({
-  //     "paging": true,
-  //     "lengthChange": false,
-  //     "searching": false,
-  //     "ordering": true,
-  //     "info": true,
-  //     "autoWidth": false,
-  //     "responsive": true,
-  //   });
-  // });
-</script>
 <script>
   $(function() {
     $("#example1").DataTable({
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
   });
@@ -77,26 +57,3 @@
     return true;
   }
 </script>
-
-<!-- show hide form and listing -->
-<script>
-  $('.list_edit_btn').click(function() {
-    // $('.show_form_section').trigger('click');
-    // $("#form_section").css("display", "block");
-  });
-</script>
-
-<script>
-  $('.show_form_section').click(function() {
-    $("#form_section").css("display", "block");
-    $("#list_section").css("display", "none");
-  });
-</script>
-
-<script>
-  $('.show_list_section').click(function() {
-    $("#form_section").css("display", "none");
-    $("#list_section").css("display", "block");
-  });
-</script>
-<!-- show hide form and listing -->

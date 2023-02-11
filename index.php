@@ -79,15 +79,11 @@ $tot_blood_group = mysqli_num_rows($run_head);
         <div class="container-fluid">
           <!-- Info boxes -->
           <div class="row">
-
-
             <?php
             $sql_medicine = "SELECT * From blood_group_master WHERE 1 ";
             $run_medicine = mysqli_query($con, $sql_medicine);
-            // $total_medicine = mysqli_num_rows($run_medicine);
             $no = 1;
             while ($row = mysqli_fetch_assoc($run_medicine)) {
-              // print_r($row);
               $blood_group = $row['blood_group'];
               $stock = $row['stock'];
 
@@ -105,9 +101,7 @@ $tot_blood_group = mysqli_num_rows($run_head);
             ?>
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                  <!-- <span class="info-box-icon bg-danger elevation-1"><i class="far fa-solid fa-heart"></i></span> -->
                   <span class="info-box-icon bg-<?= $class_color; ?> elevation-1" style="max-height:65px"><img src="Images/logo/pngtree1.png" style="width: auto; height:50%; " alt="" sizes="" srcset=""></span>
-                  <!-- <span class="info-box-icon bg-<?= $class_color; ?> elevation-1" style="max-height:65px"><img src="Images/logo/droplet-solid.svg" style="width: auto; height:50%; " alt="" sizes="" srcset=""></span> -->
                   <a href="blood_group_list.php">
                     <div class="info-box-content">
                       <span class="info-box-text"><?php echo $blood_group ?></span>
@@ -119,22 +113,6 @@ $tot_blood_group = mysqli_num_rows($run_head);
             <?php } ?>
 
             <div class="clearfix hidden-md-up"></div>
-
-            <!-- <i class="fa-regular fa-droplet"></i> -->
-            <!-- <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span> -->
-            <!-- <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box">
-                <span class="info-box-icon bg-danger elevation-1"><i class="far fa-solid fa-heart"></i></span>
-                <a href="blood_group_list.php">
-                  <div class="info-box-content">
-                    <span class="info-box-text">Blood Group</span>
-                    <span class="info-box-number"><?php echo $tot_blood_group ?></span>
-                  </div>
-                </a>
-              </div>
-            </div> -->
-            <!-- /.col -->
-
             <?php
             $sql_1 = "SELECT * From donar_registration WHERE 1 ";
             $run_1 = mysqli_query($con, $sql_1);
@@ -208,19 +186,6 @@ $tot_blood_group = mysqli_num_rows($run_head);
 
             <!-- fix for small devices only -->
             <div class="clearfix hidden-md-up"></div>
-            <!-- /.col -->
-            <!-- <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-              <a href="doctor_master.php">
-                <div class="info-box-content">
-                  <span class="info-box-text">Doctors</span>
-                  <span class="info-box-number"><?php echo $total_doctor ?></span>
-                </div>
-              </a>
-            </div>
-          </div> -->
-            <!-- /.col -->
           </div><!-- /.row -->
         </div><!--/. container-fluid -->
       </section>
